@@ -10,14 +10,15 @@ import com.ospa.dto.ApiResponse;
 public class HelloController {
     @Autowired
     NamedParameterJdbcTemplate jdbcTemplate;
+    
 
     @RequestMapping("/")
     String hello() {
         return "Hello World!";
     }
 
-    @RequestMapping("/chats")
-    ApiResponse<String> chats() {
-        return new ApiResponse<String>(null, "Hello World!");
+    @RequestMapping("/users")
+    ApiResponse<String> users() {
+        return new ApiResponse<String>(null, "Hello Users!");
     }
 }

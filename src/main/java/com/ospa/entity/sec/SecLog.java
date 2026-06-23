@@ -25,11 +25,6 @@ public class SecLog {
         columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private LocalDateTime timestamp;
 
-    @PrePersist
-    protected void onCreate() {
-        timestamp = LocalDateTime.now();
-    }
-
     public SecLog() {}
 
     public Long getId() { return id; }
