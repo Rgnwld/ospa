@@ -21,6 +21,7 @@ public class SettingsDTO {
     }
 
     public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     public String getSettingKey() { return settingKey; }
     public void setSettingKey(String settingKey) { this.settingKey = settingKey; }

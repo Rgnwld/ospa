@@ -14,9 +14,9 @@ public interface SecUserRepository extends JpaRepository<SecUser, Long> {
 
     boolean existsByEmail(String email);
 
-    @Query("SELECT u FROM SecUser u LEFT JOIN FETCH u.perfis WHERE u.id = :id")
+    @Query("select u FROM SecUser u LEFT JOIN FETCH u.perfis WHERE u.id = :id")
     Optional<SecUser> findByIdWithPerfis(@Param("id") Long id);
 
     @Query("SELECT u FROM SecUser u WHERE u.email = :email AND u.senha = :senha")
-    Optional<SecUser> login(String email, String password);
+    Optional<SecUser> login(@Param("email") String email, @Param("senha") String password);
 }

@@ -2,12 +2,16 @@ package com.ospa.auth.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 @Entity
 @Table(name = "sec_user")
-public class SecUser {
+public class SecUser implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +40,7 @@ public class SecUser {
     @Column(nullable = false)
     private Boolean ativo = true;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "sec_user_perfil",
         joinColumns = @JoinColumn(name = "user_id"),
@@ -74,4 +78,15 @@ public class SecUser {
 
     public Set<SecPerfil> getPerfis() { return perfis; }
     public void setPerfis(Set<SecPerfil> perfis) { this.perfis = perfis; }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        throw new UnsupportedOperationException("Unimplemented method 'getAuthorities'");
+    }
+
+    @Override
+    public String getPassword() { return this.senha; }
+
+    @Override
+    public String getUsername() {   return this.usrLogin; }
 }

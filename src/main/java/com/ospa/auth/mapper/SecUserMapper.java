@@ -1,31 +1,22 @@
 package com.ospa.auth.mapper;
 
-import com.ospa.auth.entity.SecPerfil;
 import com.ospa.auth.entity.SecUser;
+
 import com.ospa.auth.dto.SecUserDTO;
 
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-import java.util.Set;
-import java.util.stream.Collectors;
+@Mapper(componentModel = "spring")
+public interface SecUserMapper {
 
-@Component
-public class SecUserMapper {
+    @Mapping(source = "perfis", target = "perfis")
+    public SecUserDTO toDTO(SecUser entity);
 
-    public SecUserDTO toDTO(SecUser entity) {
-        if (entity == null) return null;
-
-        Set<String> perfisNomes = entity.getPerfis() == null
-                ? Set.of()
-                : entity.getPerfis().stream().map(SecPerfil::getNome).collect(Collectors.toSet());
-
-        return new SecUserDTO(
-                entity.getId(),
-                entity.getUsrLogin(),
-                entity.getEmail(),
-                entity.getAtivo(),
-                entity.getCriadoEm(),
-                perfisNomes
-        );
-    }
+    @Mapping(source = "perfis", target = "perfis")
+    @Mapping(target = "senha", ignore = true)
+    @Mapping(target = "atualizadoEm", ignore = true)
+    @Mapping(target = "senhaResetToken", ignore = true)
+    @Mapping(target = "authorities", ignore = true)
+    public SecUser toEntity(SecUserDTO dto);
 }

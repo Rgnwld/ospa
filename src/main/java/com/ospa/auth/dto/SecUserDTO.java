@@ -1,6 +1,7 @@
 package com.ospa.auth.dto;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 public class SecUserDTO {
@@ -10,12 +11,12 @@ public class SecUserDTO {
     private String email;
     private Boolean ativo;
     private LocalDateTime criadoEm;
-    private Set<String> perfis;
+    private Set<SecPerfilDTO> perfis = new HashSet<>();
 
     public SecUserDTO() {}
 
     public SecUserDTO(Long id, String usrLogin, String email, Boolean ativo,
-                       LocalDateTime criadoEm, Set<String> perfis) {
+                       LocalDateTime criadoEm, Set<SecPerfilDTO> perfis) {
         this.id = id;
         this.usrLogin = usrLogin;
         this.email = email;
@@ -25,6 +26,7 @@ public class SecUserDTO {
     }
 
     public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     public String getUsrLogin() { return usrLogin; }
     public void setUsrLogin(String usrLogin) { this.usrLogin = usrLogin; }
@@ -38,6 +40,6 @@ public class SecUserDTO {
     public LocalDateTime getCriadoEm() { return criadoEm; }
     public void setCriadoEm(LocalDateTime criadoEm) { this.criadoEm = criadoEm; }
 
-    public Set<String> getPerfis() { return perfis; }
-    public void setPerfis(Set<String> perfis) { this.perfis = perfis; }
+    public Set<SecPerfilDTO> getPerfis() { return perfis; }
+    public void setPerfis(Set<SecPerfilDTO> perfis) { this.perfis = perfis; }
 }

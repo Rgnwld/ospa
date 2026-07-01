@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("/auth/usuarios")
 public class SecUserController {
 
     private final SecUserService userService;
@@ -23,7 +23,7 @@ public class SecUserController {
     public ResponseEntity<SecUserDTO> criar(@Valid @RequestBody SecUserCreateDTO dto) {
         SecUserDTO criado = userService.criar(dto);
         return ResponseEntity
-                .created(URI.create("/api/usuarios/" + criado.getId()))
+                .created(URI.create("/auth/usuarios/" + criado.getId()))
                 .body(criado);
     }
 

@@ -1,5 +1,6 @@
 package com.ospa.auth.service;
 
+//Auth
 import com.ospa.auth.entity.SecPerfil;
 import com.ospa.auth.entity.SecUser;
 import com.ospa.auth.mapper.SecUserMapper;
@@ -7,6 +8,9 @@ import com.ospa.auth.dto.SecUserCreateDTO;
 import com.ospa.auth.dto.SecUserDTO;
 import com.ospa.auth.repository.SecPerfilRepository;
 import com.ospa.auth.repository.SecUserRepository;
+import com.ospa.settings.repository.SettingsRepository;
+
+//Spring
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,15 +22,18 @@ public class SecUserService {
 
     private final SecUserRepository userRepository;
     private final SecPerfilRepository perfilRepository;
+    private final SettingsRepository settingsRepository;
     private final SecUserMapper userMapper;
     private final BCryptPasswordEncoder passwordEncoder;
 
     public SecUserService(SecUserRepository userRepository,
             SecPerfilRepository perfilRepository,
+            SettingsRepository settingsRepository,
             SecUserMapper userMapper,
             BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.perfilRepository = perfilRepository;
+        this.settingsRepository = settingsRepository;
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
     }
@@ -48,8 +55,10 @@ public class SecUserService {
         user.setAtivo(true);
 
         // Perfil padrão, exemplo
-        SecPerfil perfilPadrao = perfilRepository.findByNome("USER")
-                .orElseThrow(() -> new IllegalStateException("Perfil padrão não encontrado"));
+        SecPerfil perfilPadrao = perfilRepository.findByNome(settingsRepository.findBySettingKey("DEFAULT_USER_PROFILE")
+                .orElseThrow(() -> new IllegalArgumentException("Perfil padrão não encontrado"))
+                .getSettingValue()
+            );
         user.setPerfis(Set.of(perfilPadrao));
 
         SecUser salvo = userRepository.save(user);

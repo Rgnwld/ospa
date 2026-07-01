@@ -5,23 +5,8 @@ import com.ospa.auth.dto.SecPermissionDTO;
 
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface SecPermissionMapper {
     SecPermissionDTO toDTO(SecPermission entity);
+    SecPermission toEntity(SecPermissionDTO dto);
 }
-
-// @Mapper(componentModel = "spring")
-// public class SecPermissionMapper {
-//     public SecPermissionDTO toDTO(SecPermission entity) {
-//         if (entity == null) {
-//             return null;
-//         }
-
-//         SecPermissionDTO dto = new SecPermissionDTO();
-//         dto.setId(entity.getId());
-//         dto.setNome(entity.getNome());
-//         dto.setDescricao(entity.getDescricao());
-
-//         return dto;
-//     }
-// }

@@ -19,30 +19,14 @@ public class SecUserCreateDTO {
     @Size(min = 3, max = 100, message = "Senha deve ter entre 3 e 100 caracteres")
     private String senha;
 
-    public SecUserCreateDTO() {
-    }
+    public SecUserCreateDTO() {}
 
-    public String getUsrLogin() {
-        return usrLogin;
-    }
+    public String getUsrLogin() { return usrLogin; }
+    public void setUsrLogin(String usrLogin) { this.usrLogin = usrLogin; }
 
-    public void setUsrLogin(String usrLogin) {
-        this.usrLogin = usrLogin;
-    }
+    public String getEmail() { return email;}
+    public void setEmail(String email) { this.email = email;}
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
+    public String getSenha() { return senha; }
+    public void setSenha(String senha) { this.senha = senha; }
 }
